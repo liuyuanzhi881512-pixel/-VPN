@@ -200,6 +200,68 @@
     display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;
     align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-right:6px;flex:none;
   }
+
+  /* ===== Platform sub-group as collapsible <details class="plat-grp"> ===== */
+  details.plat-grp{
+    border:1px solid var(--line);border-radius:14px;margin:16px 0;background:#fff;overflow:hidden;
+    box-shadow:0 2px 10px rgba(15,23,42,.04);
+  }
+  details.plat-grp>summary{
+    list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:8px;
+    font-size:16px;font-weight:700;color:var(--brand-dark);user-select:none;transition:background .2s;
+  }
+  details.plat-grp>summary::-webkit-details-marker{display:none;}
+  details.plat-grp>summary:hover{background:#f8fafc;}
+  details.plat-grp[open]>summary{border-bottom:1px solid var(--line);background:#f8fbff;}
+  details.plat-grp>summary .arrow{margin-left:auto;font-size:14px;color:var(--brand);transition:transform .25s;}
+  details.plat-grp[open]>summary .arrow{transform:rotate(180deg);}
+  .plat-grp-body{padding:6px 20px 18px;}
+
+  /* ===== FAQ item as collapsible ===== */
+  details.faq{border:1px solid var(--line);border-radius:10px;margin:9px 0;overflow:hidden;background:#fff;}
+  details.faq>summary{
+    list-style:none;cursor:pointer;padding:13px 16px;font-size:14.5px;font-weight:600;color:var(--ink);
+    display:flex;align-items:center;gap:8px;user-select:none;transition:background .2s;
+  }
+  details.faq>summary::-webkit-details-marker{display:none;}
+  details.faq>summary:hover{background:#f8fafc;}
+  details.faq>summary .q{flex:1;}
+  details.faq>summary .arrow{margin-left:auto;font-size:13px;color:var(--brand);transition:transform .25s;}
+  details.faq[open]>summary .arrow{transform:rotate(180deg);}
+  details.faq[open]>summary{border-bottom:1px solid var(--line);color:var(--brand-dark);}
+  .faq-a{padding:12px 16px;font-size:14px;color:var(--sub);line-height:1.7;}
+
+  /* ===== 敏感信息（账号密码）遮罩 ===== */
+  .secret{
+    position:relative;display:inline-block;cursor:pointer;border-radius:6px;
+    background:#eef2ff;color:#3730a3;padding:2px 8px;font-family:Consolas,Monaco,monospace;font-size:13px;
+    transition:.2s;user-select:none;
+  }
+  .secret .val{filter:blur(5px);transition:filter .2s;}
+  .secret.reveal .val{filter:none;user-select:text;}
+  .secret::after{
+    content:"👁 点击显示";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:"Microsoft YaHei",sans-serif;font-size:11px;color:var(--brand-dark);font-weight:700;
+    background:rgba(238,242,255,.55);border-radius:6px;pointer-events:none;transition:.2s;
+  }
+  .secret.reveal::after{opacity:0;}
+
+  /* callout 折叠版：进阶/排查类提示 */
+  details.tipbox{border-radius:12px;margin:16px 0;overflow:hidden;font-size:14px;}
+  details.tipbox.tip{background:var(--tip-bg);border:1px solid var(--tip-bd);}
+  details.tipbox.warn{background:var(--warn-bg);border:1px solid var(--warn-bd);}
+  details.tipbox>summary{
+    list-style:none;cursor:pointer;padding:12px 18px;font-weight:700;user-select:none;
+    display:flex;align-items:center;gap:8px;
+  }
+  details.tipbox.tip>summary{color:var(--tip-ink);}
+  details.tipbox.warn>summary{color:var(--warn-ink);}
+  details.tipbox>summary::-webkit-details-marker{display:none;}
+  details.tipbox>summary .arrow{margin-left:auto;font-size:13px;transition:transform .25s;}
+  details.tipbox[open]>summary .arrow{transform:rotate(180deg);}
+  .tipbox-body{padding:0 18px 14px;}
+  details.tipbox.tip .tipbox-body{color:var(--tip-ink);}
+  details.tipbox.warn .tipbox-body{color:var(--warn-ink);}
 </style>
 </head>
 <body>
@@ -257,8 +319,8 @@
         <div class="acct-head">🔑 WgetCloud 账号信息</div>
         <div class="acct-body">
           <div class="acct-row"><span class="k">官网地址</span><span class="v"><a href="https://ku8clzaffekxxaxcyftw.wgetcloud.org/" target="_blank">https://ku8clzaffekxxaxcyftw.wgetcloud.org/</a></span></div>
-          <div class="acct-row"><span class="k">登录账号</span><span class="v"><code class="inline">getcloud001@gmail.com</code></span></div>
-          <div class="acct-row"><span class="k">登录密码</span><span class="v"><code class="inline">Getcloud2026</code></span></div>
+          <div class="acct-row"><span class="k">登录账号</span><span class="v"><span style="color:var(--sub)">请向管理员索取，并自行保存到手机备忘录</span></span></div>
+          <div class="acct-row"><span class="k">登录密码</span><span class="v"><span style="color:var(--sub)">请向管理员索取，并自行保存到手机备忘录</span></span></div>
           <div class="acct-row"><span class="k">获取订阅</span><span class="v">登录后进入 <b>用户中心 → 订阅中心</b>，打开「订阅」开关，点击 <b>复制订阅</b> 即可拿到订阅链接。</span></div>
         </div>
       </div>
@@ -282,8 +344,8 @@
         <div class="acct-head">🌸 FlowerCloud 账号信息</div>
         <div class="acct-body">
           <div class="acct-row"><span class="k">官网地址</span><span class="v"><a href="http://www.flowercloud.net" target="_blank">www.flowercloud.net</a></span></div>
-          <div class="acct-row"><span class="k">登录账号</span><span class="v"><span style="color:var(--sub)">（待补充）</span></span></div>
-          <div class="acct-row"><span class="k">登录密码</span><span class="v"><span style="color:var(--sub)">（待补充）</span></span></div>
+          <div class="acct-row"><span class="k">登录账号</span><span class="v"><span style="color:var(--sub)">请向管理员索取，并自行保存到手机备忘录</span></span></div>
+          <div class="acct-row"><span class="k">登录密码</span><span class="v"><span style="color:var(--sub)">请向管理员索取，并自行保存到手机备忘录</span></span></div>
           <div class="acct-row"><span class="k">获取订阅</span><span class="v">登录后进入 <b>产品服务 → 我的服务</b>，在右侧点击 <b>管理产品</b>，打开「订阅更新」开关，复制对应订阅链接。</span></div>
         </div>
       </div>
@@ -291,6 +353,11 @@
       <div class="callout tip">
         <span class="ttl">💡 主备切换</span>
         当主线路（WgetCloud）节点全部超时、掉线或收到维护通知时，可切换到备用线路（FlowerCloud）：登录备用官网获取其订阅链接，重新导入软件即可。
+      </div>
+
+      <div class="callout warn">
+        <span class="ttl">🔐 账号密码请自行妥善保管</span>
+        出于安全考虑，本指引<b>不直接展示账号和密码</b>。请向管理员索取后，<b>保存到你自己手机的「备忘录」</b>等私密位置，切勿截图外传或发到公开群聊。
       </div>
     </div>
   </details>
@@ -414,10 +481,12 @@
       <span class="chev"><span class="lbl-open">收起</span><span class="lbl-close">展开</span><span class="arrow">▾</span></span>
     </summary>
     <div class="sec-inner">
-      <p style="color:var(--sub);font-size:14px;">软件安装完成后，把第一步复制的「订阅链接」导入软件，再选择节点并开启代理即可上网。以下按平台分别说明。</p>
+      <p style="color:var(--sub);font-size:14px;">软件安装完成后，把第一步复制的「订阅链接」导入软件，再选择节点并开启代理即可上网。<b>请点击下方你所用的系统展开对应教程</b>（默认收起，只看自己的平台即可）。</p>
 
       <!-- Windows -->
-      <h3 class="block"><span class="plat p-win">Windows</span>Clash for Windows 一键订阅</h3>
+      <details class="plat-grp">
+      <summary><span class="plat p-win">Windows</span>Clash for Windows 一键订阅<span class="arrow">▾</span></summary>
+      <div class="plat-grp-body">
       <h4 class="step"><span class="step-num">1</span>准备工作：关闭系统代理</h4>
       <p>打开软件进入 <b>General（常规/主页）</b> 页面，确保 <b>System Proxy（系统代理）</b> 和 <b>TUN 模式</b> 开关都处于 <b>关闭（OFF）</b> 状态，以免影响导入。</p>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：关闭系统代理</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/win_cfg_p1.png" alt="Windows 关闭系统代理"><div class="cap">确保「系统代理」「TUN 模式」为关闭状态</div></div></details>
@@ -430,9 +499,13 @@
       <h4 class="step"><span class="step-num">3</span>选择节点并开启代理</h4>
       <p>进入 <b>Proxies（代理）</b> 页面，顶部模式建议选择 <b>Rule（规则）</b>，在节点列表中选择要使用的节点。最后回到主页打开 <b>系统代理</b> 开关，即可用浏览器访问 Google 等网站测试。</p>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：开启系统代理</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/win_cfg_p3.png" alt="Windows 开启系统代理"><div class="cap">完成导入后打开「系统代理」开关即可正常上网</div></div></details>
+      </div>
+      </details>
 
       <!-- macOS -->
-      <h3 class="block"><span class="plat p-mac">macOS</span>Clash Verge Rev 配置</h3>
+      <details class="plat-grp">
+      <summary><span class="plat p-mac">macOS</span>Clash Verge Rev 配置<span class="arrow">▾</span></summary>
+      <div class="plat-grp-body">
       <h4 class="step"><span class="step-num">1</span>填入订阅链接</h4>
       <p>打开 Clash Verge Rev，点击左侧 <b>「订阅」</b> 栏，将复制的订阅链接粘贴到顶部输入框，点击 <b>「导入」</b>。列表中出现配置文件即表示导入成功。</p>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：填入订阅</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/mac_cfg_p1.png" alt="macOS 填入订阅"><div class="cap">粘贴订阅链接 → 点击「导入」，出现 WgetCloud.yaml 文件代表成功</div></div></details>
@@ -456,9 +529,13 @@
         若点击「系统代理」后自动关闭或无反应：进入 <b>设置</b> 页面，点击 <b>「虚拟网卡模式（TUN）」</b> 旁的小扳手图标进行安装/修复，然后开启 <b>TUN 模式</b> 开关，通常可解决 Mac 系统的权限冲突问题。
       </div>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：TUN 模式修复</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/mac_cfg_p5.png" alt="macOS TUN 模式"><div class="cap">点击虚拟网卡旁的扳手图标安装服务模式，再开启 TUN 模式</div></div></details>
+      </div>
+      </details>
 
       <!-- iOS -->
-      <h3 class="block"><span class="plat p-ios">iOS</span>Shadowrocket 添加配置</h3>
+      <details class="plat-grp">
+      <summary><span class="plat p-ios">iOS</span>Shadowrocket 添加配置<span class="arrow">▾</span></summary>
+      <div class="plat-grp-body">
       <h4 class="step"><span class="step-num">1</span>添加订阅</h4>
       <p>打开 Shadowrocket，点击右上角 <b>「+」</b> 进入添加页面：</p>
       <ul>
@@ -471,9 +548,13 @@
       <h4 class="step"><span class="step-num">2</span>选择节点并开启连接</h4>
       <p>导入成功后：点击选中一个要使用的节点（前面会出现小黄点）；打开右上角 <b>连接开关</b> 即可使用。首次连接若弹出 VPN 权限申请，请点击 <b>Allow / 允许</b> 并验证密码。</p>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：开启连接</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/ios_cfg_p2.png" alt="iOS 开启连接"><div class="cap">选中节点（黄点）→ 打开连接开关；配置需确保选择的是默认配置</div></div></details>
+      </div>
+      </details>
 
       <!-- Android & Harmony -->
-      <h3 class="block"><span class="plat p-and">Android</span><span class="plat p-harmony">鸿蒙</span>Clash Meta for Android 配置</h3>
+      <details class="plat-grp">
+      <summary><span class="plat p-and">Android</span><span class="plat p-harmony">鸿蒙</span>Clash Meta for Android 配置<span class="arrow">▾</span></summary>
+      <div class="plat-grp-body">
       <p>鸿蒙用户使用兼容安卓应用的方式，操作流程与 Android 一致。</p>
       <h4 class="step"><span class="step-num">1</span>从 URL 导入配置</h4>
       <ol>
@@ -492,6 +573,8 @@
         <li>点击 <b>代理</b> 进入，可切换节点、点击闪电图标测试连通性。</li>
       </ol>
       <details class="fig"><summary><span class="ic">🖼️</span><span class="lbl-close">点击查看截图：开启代理</span><span class="lbl-open">收起截图</span><span class="arrow">▾</span></summary><div class="fig-body"><img src="assets/android_cfg_p2.png" alt="Android 开启代理"><div class="cap">选中配置 → 点击启动 → 授权 VPN → 进入「代理」切换/测试节点</div></div></details>
+      </div>
+      </details>
     </div>
   </details>
 
@@ -566,15 +649,15 @@
       <span class="chev"><span class="lbl-open">收起</span><span class="lbl-close">展开</span><span class="arrow">▾</span></span>
     </summary>
     <div class="sec-inner">
-      <p style="color:var(--sub);font-size:14px;">遇到无法上网时，按下面思路快速定位问题。</p>
-      <ul>
-        <li><b>软件已开但打不开网页：</b>检查是否已打开「系统代理」开关；确认已选中一个有延迟数值的可用节点。</li>
-        <li><b>节点全部超时/红色：</b>先更新订阅（第四步）；仍不行则切换到备用线路 FlowerCloud。</li>
-        <li><b>国内网站也打不开：</b>多为「全球直连 / 漏网之鱼」被误改，恢复默认即可（macOS 见第三步说明）。</li>
-        <li><b>Mac 系统代理开关自动关闭：</b>安装并开启 TUN（虚拟网卡）模式。</li>
-        <li><b>登录官网收不到验证码：</b>登录绑定的 Gmail 邮箱查看，注意验证码时效，过期重新获取。</li>
-        <li><b>iOS 搜不到 Shadowrocket：</b>需切换到境外 App Store 账号。</li>
-      </ul>
+      <p style="color:var(--sub);font-size:14px;">遇到无法上网时，点击下面对应的问题查看解决方法。</p>
+
+      <details class="faq"><summary><span class="q">❓ 软件已开，但打不开网页</span><span class="arrow">▾</span></summary><div class="faq-a">检查是否已打开「系统代理」开关；确认已选中一个有延迟数值的可用节点（延迟显示为数字而非超时）。</div></details>
+      <details class="faq"><summary><span class="q">❓ 节点全部超时 / 显示红色</span><span class="arrow">▾</span></summary><div class="faq-a">先更新订阅（见第四步）同步最新服务器；仍不行则切换到备用线路 FlowerCloud，用其订阅链接重新导入。</div></details>
+      <details class="faq"><summary><span class="q">❓ 国内网站也打不开了</span><span class="arrow">▾</span></summary><div class="faq-a">多为「全球直连 / 漏网之鱼」被误改。请恢复默认：「全球直连」保持 DIRECT，「漏网之鱼」保持节点选择（macOS 详见第三步说明）。</div></details>
+      <details class="faq"><summary><span class="q">❓ Mac 系统代理开关一打开就自动关闭</span><span class="arrow">▾</span></summary><div class="faq-a">进入「设置」，点击虚拟网卡（TUN）旁的扳手图标安装服务模式，再开启 TUN 模式即可解决权限冲突。</div></details>
+      <details class="faq"><summary><span class="q">❓ 登录机场官网收不到验证码</span><span class="arrow">▾</span></summary><div class="faq-a">验证码发送到绑定的 Gmail 邮箱，请登录 Gmail 收件箱查看；注意验证码有几分钟时效，过期请在网页重新获取。</div></details>
+      <details class="faq"><summary><span class="q">❓ iOS 的 App Store 搜不到 Shadowrocket</span><span class="arrow">▾</span></summary><div class="faq-a">国区 App Store 没有该应用，需切换到境外 Apple ID（详见第二步「iOS」小节里的图文教程）。</div></details>
+
       <div class="callout warn">
         <span class="ttl">⚠️ 合规提醒</span>
         本指引仅用于合法的技术学习与访问境外正常服务（如学术资料、开发文档等），请遵守所在地区法律法规，勿用于任何违法用途。账号密码属于敏感信息，请妥善保管、勿外传。
@@ -591,7 +674,7 @@
 
 <script>
   function toggleAll(open){
-    document.querySelectorAll('details.sec, details.fig').forEach(function(d){ d.open = open; });
+    document.querySelectorAll('details.sec, details.fig, details.plat-grp, details.faq, details.tipbox').forEach(function(d){ d.open = open; });
   }
 </script>
 </body>
